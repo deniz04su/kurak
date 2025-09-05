@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <title>KURAK Shop</title>
+</head>
+<body>
+    <h1>KURAK Дүкөнүнө кош келиңиз!</h1>
+
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.price }} сом</li>
+        {% empty %}
+            <li>Азырынча товар жок</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

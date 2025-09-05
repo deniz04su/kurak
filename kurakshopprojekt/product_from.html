@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Аты">
+  <input type="number" step="0.01" name="price" placeholder="Баасы">
+
+  <label>
+    <input type="checkbox" name="is_original"> Оригинал
+  </label>
+
+  <input type="text" name="phone_number" placeholder="Телефон номер">
+
+  <button type="submit">Сактоо</button>
+</form>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<h2>Вход</h2>
+<form method="post">{% csrf_token %}
+<input name="username" placeholder="Username или телефон"><br>
+<input type="password" name="password" placeholder="Пароль"><br>
+<button>Войти</button>
+</form>
+<a href="{% url 'register' %}">Регистрация</a>

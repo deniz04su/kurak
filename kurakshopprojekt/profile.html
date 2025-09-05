@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <title>Менин профилем</title>
+</head>
+<body>
+    <h1>Салам, {{ user.username }}!</h1>
+    <p>Телефон: {{ user.phone_number }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" width="150" alt="Profile Image">
+    {% else %}
+        <p>Сүрөт жүктөлгөн жок</p>
+    {% endif %}
+
+    <p><a href="{% url 'logout' %}">Чыгуу</a></p>
+</body>
+</html>

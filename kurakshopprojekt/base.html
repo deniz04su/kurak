@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <title>KURAK Shop</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Навигация -->
+    <header>
+        <nav>
+            <a href="/">🏠 Башкы бет</a>
+            <a href="/products/">🛍 Продукциялар</a>
+            <a href="/about/">ℹ Биз жөнүндө</a>
+        </nav>
+    </header>
+
+    <!-- Контент -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <p>© 2025 KURAK Brand. Бардык укуктар корголгон.</p>
+    </footer>
+</body>
+</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🛍 Биздин продукциялар</h2>
+<div class="products">
+    {% for product in products %}
+    <div class="card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }} сом</p>
+        <p>{{ product.description|truncatewords:15 }}</p>
+        <button>Сатып алуу</button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

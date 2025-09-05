@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Добро пожаловать в KurakShopProjekt!</h1>
+</body>
+</html>
+
+<h2>Главная</h2>
+{% if user.is_authenticated %}
+<p>Привет, {{ user.username }} <a href="{% url 'logout' %}">Выйти</a></p>
+{% else %}
+<p><a href="{% url 'login' %}">Войти</a> или <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+{% endif %}
+
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>KURAK — Кыргызча стиль менен дүйнөгө</h1>
+    <p>Уникалдуу улуттук орнаменттер менен жасалган кийимдер</p>
+    <a class="btn" href="/products/">Продукцияларды көрүү</a>
+</section>
+{% endblock %}
