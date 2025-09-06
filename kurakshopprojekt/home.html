@@ -22,3 +22,47 @@ kurakshopprojekt/
     <p>Сайт даяр!</p>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<title>Kurak Shop</title>
+<style>
+body { font-family: Arial; background: #f2f2f2; }
+h1 { color: #333; }
+.card { background: white; padding: 10px; margin: 10px; display: inline-block; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+img { max-width: 150px; display: block; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<h1>Kurak Shop</h1>
+
+<h2>Категориялар</h2>
+<ul>
+{% for category in categories %}
+    <li>{{ category.name }}</li>
+{% empty %}
+    <li>Категориялар жок</li>
+{% endfor %}
+</ul>
+
+<h2>Продукттар</h2>
+<div>
+{% for product in products %}
+    <div class="card">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+        <strong>{{ product.name }}</strong><br>
+        {{ product.price }} сом<br>
+        {% if product.category %}
+            Категория: {{ product.category.name }}
+        {% endif %}
+    </div>
+{% empty %}
+    <p>Продукттар жок</p>
+{% endfor %}
+</div>
+
+</body>
+</html>

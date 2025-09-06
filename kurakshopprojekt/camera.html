@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="kg">
+<head>
+    <meta charset="UTF-8">
+    <title>Камерадан сүрөт алуу</title>
+</head>
+<body>
+    <h1>Камерадан сүрөт алуу</h1>
+
+    <video id="camera-stream" width="320" height="240" autoplay></video>
+    <br>
+    <button id="take-photo">Сүрөт тартуу</button>
+
+    <canvas id="snapshot" width="320" height="240" style="display:none;"></canvas>
+
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="image_data" id="image_data">
+        <button type="submit">Жүктөө</button>
+    </form>
+
+    <script>
+        const video = document.getElementById('camera-stream');
+        const canvas = document.getElementById('snapshot');
+        const takePhoto = document.getElementById('take-photo');
+        const imageInput = document.getElementById('image_data');
+
+        // Камераны ачуу
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => video.srcObject = stream)
+            .catch(err => alert("Камераны ача албайт: " + err));
+
+        // Сүрөт тартуу
+        takePhoto.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+            imageInput.value = dataURL; // сүрөттү формага койду
+<video id="camera-stream" autoplay></video>
+<button id="take-photo">Сүрөт тартуу</button>
+<canvas id="snapshot" style="display:none;"></canvas>

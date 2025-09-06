@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!-- kurakshopprojekt/templates/product_list.html -->
+<h1>Товары</h1>
+
+<form method="get">
+    <label>Цена:</label>
+    <select name="price">
+        <option value="">Все</option>
+        <option value="low" {% if request.GET.price == 'low' %}selected{% endif %}>Дешево</option>
+        <option value="high" {% if request.GET.price == 'high' %}selected{% endif %}>Дорого</option>
+    </select>
+
+    <label>Наличие:</label>
+    <select name="available">
+        <option value="">Все</option>
+        <option value="yes" {% if request.GET.available == 'yes' %}selected{% endif %}>Есть</option>
+        <option value="no" {% if request.GET.available == 'no' %}selected{% endif %}>Нет</option>
+    </select>
+
+    <label>Рейтинг:</label>
+    <select name="rating">
+        <option value="">Нет сортировки</option>
+        <option value="high" {% if request.GET.rating == 'high' %}selected{% endif %}>Сначала высокие</option>
+        <option value="low" {% if request.GET.rating == 'low' %}selected{% endif %}>Сначала низкие</option>
+    </select>
+
+    <button type="submit">Применить</button>
+</form>
+
+<ul>
+    {% for product in products %}
+        <li>{{ product.name }} — {{ product.price }}₸ — {% if product.available %}Есть{% else %}Нет{% endif %} — Рейтинг: {{ product.rating }}</li>
+    {% empty %}
+        <li>Товаров нет</li>
+    {% endfor %}
+</ul>

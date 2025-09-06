@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<div id="chat"></div>
+<input type="text" id="msg" placeholder="Суроо жаз...">
+<button onclick="sendMsg()">Жөнөтүү</button>
+
+<script>
+async function sendMsg() {
+  let text = document.getElementById("msg").value;
+  let resp = await fetch("/dosum/", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({"message": text})
+  });
+  let data = await resp.json();
+  document.getElementById("chat").innerHTML += "<p><b>Сиз:</b> " + text + "</p>";
+  document.getElementById("chat").innerHTML += "<p><b>Досум:</b> " + data.answer + "</p>";
+}
+</script>

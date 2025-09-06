@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="kg">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукциялар</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        .product { border: 1px solid #ccc; padding: 10px; margin: 10px; background: #fff; display: inline-block; width: 200px; vertical-align: top; }
+        .product img { width: 100%; height: auto; }
+        .product h3 { margin: 5px 0; font-size: 18px; }
+        .product p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Барлык продукттар</h1>
+    <div>
+        {% for product in products %}
+            <div class="product">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>Баасы: {{ product.price }} сом</p>
+                <p>Категория: {{ product.category.name if product.category else "Белгисиз" }}</p>
+            </div>
+        {% empty %}
+            <p>Продукттар жок.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список продуктов</title>
+</head>
+<body>
+    <h1>Список продуктов</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - ${{ product.price }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

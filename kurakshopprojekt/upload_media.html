@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+{% load static %}
+<h2>Загрузить медиа для {{ product.name }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file" multiple>
+    <button type="submit">Загрузить</button>
+</form>
+
+<h3>Текущие медиа:</h3>
+<div>
+    {% for media in product.media.all %}
+        {% if media.is_video %}
+            <video width="200" controls>
+                <source src="{{ media.file.url }}" type="video/mp4">
+            </video>
+        {% else %}
+            <img src="{{ media.file.url }}" width="200">
+        {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск - {{ query }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+
+    <form method="get" action="{% url 'search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Поиск товаров или пользователей..." name="q" value="{{ query }}">
+            <button class="btn btn-primary" type="submit">Искать</button>
+        </div>
+    </form>
+
+    <h4>Пользователи:</h4>
+    <div class="list-group mb-4">
+        {% for user in users %}
+            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">
+                {{ user.username }}
+            </a>
+        {% empty %}
+            <p>Ничего не найдено</p>
+        {% endfor %}
+    </div>
+
+    <h4>Товары:</h4>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ product.name }}</h6>
+                        <p class="card-text">{{ product.price }} сом</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Товары не найдены</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'home' %}">KURAK</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+        <li><a class="nav-link" href="{% url 'profile' %}">Профиль</a></li>
+        <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
+      {% else %}
+        <li><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+        <li><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+<div id="product-1">
+  <h3>Product Name</h3>
+  <button onclick="react(1, 'like')">👍 Like</button>
+  <button onclick="react(1, 'dislike')">👎 Dislike</button>
+
+  <div>
+    <input type="text" id="comment-input-1" placeholder="Комментарий жаз...">
+    <button onclick="comment(1)">Жөнөтүү</button>
+  </div>
+
+  <div id="comments-1">
+    <!-- комментарийлер бул жерде көрүнөт -->
+  </div>
+</div>
+
+<script>
+async function react(productId, reaction) {
+    let resp = await fetch(`/product/${productId}/react/`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({reaction: reaction})
+    });
+    let data = await resp.json();
+    alert("Сен " + data.reaction + " койдуң!");
+}
+
+async function comment(productId) {
+    let content = document.getElementById(`comment-input-${productId}`).value;
+    let resp = await fetch(`/product/${productId}/comment/`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({content: content})
+    });
+    let data = await resp.json();
+    document.getElementById(`comments-${productId}`).innerHTML += "<p>" + data.comment + "</p>";
+}
+</script>
