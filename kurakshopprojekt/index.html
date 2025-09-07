@@ -1,37 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "admin/index.html" %}
 
-</body>
-</html>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Главная</title>
-</head>
-<body>
-    <h1>Добро пожаловать в KurakShopProjekt!</h1>
-</body>
-</html>
-
-<h2>Главная</h2>
-{% if user.is_authenticated %}
-<p>Привет, {{ user.username }} <a href="{% url 'logout' %}">Выйти</a></p>
-{% else %}
-<p><a href="{% url 'login' %}">Войти</a> или <a href="{% url 'register' %}">Зарегистрироваться</a></p>
-{% endif %}
-
-{% extends "base.html" %}
+{% block title %}KURAK Dashboard{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <h1>KURAK — Кыргызча стиль менен дүйнөгө</h1>
-    <p>Уникалдуу улуттук орнаменттер менен жасалган кийимдер</p>
-    <a class="btn" href="/products/">Продукцияларды көрүү</a>
-</section>
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1 class="logo">KURAK Dashboard</h1>
+    <button id="themeToggle" class="theme-btn">🌙/☀️</button>
+  </header>
+
+  <section class="dashboard-section">
+    <h2>📊 Статистика</h2>
+    <div class="charts-grid">
+      <canvas id="lineChart"></canvas>
+      <canvas id="barChart"></canvas>
+      <canvas id="pieChart"></canvas>
+    </div>
+  </section>
+
+  <section class="dashboard-section">
+    <h2>👥 Колдонуучулар</h2>
+    <table id="usersTable" class="display">
+      <thead>
+        <tr>
+          <th>Ат</th>
+          <th>Email</th>
+          <th>Статус</th>
+          <th>Катталган күнү</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Асел</td>
+          <td>asel@example.com</td>
+          <td>Активдүү</td>
+          <td>2025-09-01</td>
+        </tr>
+        <tr>
+          <td>Бекзат</td>
+          <td>bekzat@example.com</td>
+          <td>Токтотулган</td>
+          <td>2025-08-25</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="dashboard-section">
+    <h2>⚙️ Прогресс</h2>
+    <div class="progress-container">
+      <label>Заказдарды аткаруу</label>
+      <div class="progress-bar-bg"><div id="progress1" class="progress-bar"></div></div>
+    </div>
+    <div class="progress-container">
+      <label>Товар кампа</label>
+      <div class="progress-bar-bg"><div id="progress2" class="progress-bar"></div></div>
+    </div>
+  </section>
+</div>
 {% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+
+
+{% extends "admin/index.html" %}
+
+{% block title %}KURAK Dashboard{% endblock %}
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">KURAK</a></h1>
+{% endblock %}
+
+
+
+{% block content %}
+  <!-- Статистика: графиктер -->
+  <!-- Колдонуучулар таблицасы -->
+  <!-- Прогресс-баралар -->
+  <!-- Кыска шилтемелер / кнопкалар -->
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+
+{% block extrahead %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+
+
+
+{% for user in users %}
+<tr>
+  <td>{{ user.username }}</td>
+  <td>{{ user.email }}</td>
+  <td>{{ user.status }}</td>
+  <td>{{ user.date_joined }}</td>
+</tr>
+{% endfor %}
+
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+

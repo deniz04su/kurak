@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+com</td><td>Төмөн</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// Dropdown меню
+const menuItems = document.querySelectorAll('.menu-item');
+menuItems.forEach(item=>{
+  item.addEventListener('click', ()=>{
+    const dropdown = item.nextElementSibling;
+    if(dropdown && dropdown.classList.contains('dropdown')){
+      dropdown.style.display = dropdown.style.display==='flex'?'none':'flex';
+    }
+  });
+});
+
+// Chart.js график
+const ctx = document.getElementById('userChart').getContext('2d');
+new Chart(ctx, {
+  type:'line',
+  data:{
+    labels:['Янв','Фев','Мар','Апр','Май','Июн'],
+    datasets:[{
+      label:'Колдонуучулардын активдүүлүгү',
+      data:[12,19,14,20,18,22],
+      borderColor:'#d4a373',
+      backgroundColor:'rgba(212,163,115,0.2)',
+      tension:0.3
+    }]
+  },
+  options:{ responsive:true, plugins:{legend:{labels:{color:'#f0f0f0'}}}, scales:{x:{ticks:{color:'#f0f0f0'}},y:{ticks:{color:'#f0f0f0'}}} }
+});
+
+// DataTables
+$(document).ready(function(){
+  $('#usersTable').DataTable();
+});
+
+// Прогресс-бары
+window.addEventListener('load', ()=>{
+  document.getElementById('progress1').style.width = '70%';
+});
+
+// Тема которуу
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('light');
+});
+</script>
+
+</body>
+</html>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="userChart"></canvas>
+<table id="usersTable">
+  <thead>
+    <tr>
+      <th>Ат</th>
+      <th>Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>com</td>
+      <td>Төмөн</td>
+    </tr>
+  </tbody>
+</table>
+<div class="progress-container">
+  <div id="progress1" class="progress-bar"></div>
+</div>
+<style>
+  .progress-container {
+    background:#444;
+    border-radius:8px;
+    overflow:hidden;
+    height:20px;
+    width:200px;
+  }
+  .progress-bar {
+    background:#d4a373;
+    height:100%;
+    width:0;
+    transition: width 1s ease;
+  }
+</style>
+<button id="themeToggle">Тема которуу</button>
+<style>
+  body.light {
+    background:#fff;
+    color:#000;
+  }
+  body {
+    background:#1e1e1e;
+    color:#f0f0f0;
+  }
+</style>
